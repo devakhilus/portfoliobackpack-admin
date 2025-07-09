@@ -14,9 +14,10 @@ class Resume extends Model
 
     public function getFileLink()
     {
-        if ($this->file) {
-            return '<a href="' . Storage::disk('public')->url($this->file) . '" target="_blank">Download</a>';
+        if ($this->file && Storage::disk('public')->exists($this->file)) {
+            return '<a href="' . Storage::disk('public')->url($this->file) . '" target="_blank">📄 Download</a>';
         }
+
         return 'No file uploaded.';
     }
 }

@@ -23,14 +23,14 @@ class ResumeCrudController extends CrudController
 
     protected function setupListOperation()
     {
-        CRUD::column('title')->label('Title');
+        CRUD::column('title');
 
         CRUD::addColumn([
             'name' => 'file',
             'label' => 'Download Link',
             'type' => 'model_function',
             'function_name' => 'getFileLink',
-            'escaped' => false, // allow HTML link
+            'escaped' => false,
         ]);
     }
 
@@ -38,14 +38,17 @@ class ResumeCrudController extends CrudController
     {
         CRUD::setValidation(ResumeRequest::class);
 
-        CRUD::field('title')->label('Resume Title');
+        CRUD::field('title')->type('text')->label('Resume Title');
 
         CRUD::addField([
             'name' => 'file',
-            'label' => 'Resume File',
+            'label' => 'PDF File',
             'type' => 'upload',
             'upload' => true,
-            'disk' => 'public', // make sure this matches your config/filesystems.php
+            'withFiles' => [
+                'disk' => 'public',
+                'temporary' => 10,
+            ],
         ]);
     }
 
