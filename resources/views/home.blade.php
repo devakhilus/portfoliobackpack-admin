@@ -54,8 +54,17 @@
 
     <div class="contact-icons">
         @forelse ($contacts as $contact)
-        <a href="{{ $contact->url }}" target="_blank">
-            <div>{!! $contact->icon !!}<br>
+        @php
+        $url = $contact->url ?? '';
+        if ($contact->icon === '📧' && !Str::startsWith($url, 'mailto:')) {
+        $url = 'mailto:' . $url;
+        } elseif (in_array($contact->icon, ['📞', '📱']) && !Str::startsWith($url, 'tel:')) {
+        $url = 'tel:' . $url;
+        }
+        @endphp
+        <a href="{{ $url }}" target="_blank">
+            <div>
+                {!! $contact->icon !!}<br>
                 <strong>{{ $contact->type }}</strong><br>
                 {{ $contact->value }}
             </div>
@@ -83,7 +92,6 @@
                 .then(res => res.text())
                 .then(html => {
                     document.getElementById('project-container').innerHTML = html;
-
                     window.scrollTo({
                         top: document.getElementById('projects').offsetTop,
                         behavior: 'smooth'

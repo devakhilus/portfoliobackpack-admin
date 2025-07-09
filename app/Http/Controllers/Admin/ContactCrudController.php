@@ -24,7 +24,7 @@ class ContactCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::column('type')->label('Platform');
-        CRUD::column('label')->label('Label'); // Added label column
+        CRUD::column('label')->label('Label');
         CRUD::column('value')->label('Display Text');
         CRUD::column('url')->label('Link')->limit(80);
         CRUD::column('icon')->label('Icon')->type('text');
@@ -40,7 +40,7 @@ class ContactCrudController extends CrudController
             ->attributes(['placeholder' => 'e.g. Email, GitHub, LinkedIn']);
 
         CRUD::field('label')
-            ->label('Label') // Added label field
+            ->label('Label')
             ->type('text')
             ->attributes(['placeholder' => 'Optional label or name']);
 
@@ -52,7 +52,8 @@ class ContactCrudController extends CrudController
         CRUD::field('url')
             ->label('Link')
             ->type('url')
-            ->attributes(['placeholder' => 'e.g. mailto:you@example.com or https://github.com/yourusername']);
+            ->attributes(['placeholder' => 'e.g. mailto:you@example.com or https://github.com/yourusername'])
+            ->hint('Leave blank for Phone or Email — links like "tel:" or "mailto:" will be generated automatically.');
 
         CRUD::addField([
             'name' => 'icon',

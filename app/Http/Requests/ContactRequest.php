@@ -27,7 +27,8 @@ class ContactRequest extends FormRequest
         return [
             'type' => 'required|string|max:255',
             'value' => 'required|string|max:255',
-            'url'   => 'required|string|max:255', // ← instead of `url`
+            'url' => 'nullable|url',
+
             'icon'  => 'required|string|max:10',
         ];
     }
