@@ -9,6 +9,7 @@ use App\Models\Skill;
 use App\Models\Project;
 use App\Models\Career;
 use App\Models\Contact;
+use App\Models\Resume;
 
 class HomeController extends Controller
 {
@@ -20,11 +21,11 @@ class HomeController extends Controller
         $projects = Project::latest()->paginate(5);
         $careers = Career::latest()->get();
         $contacts = Contact::all();
-
+        $resume = Resume::latest()->first();
         if ($request->ajax()) {
             return view('partials.projects', compact('projects'))->render();
         }
 
-        return view('home', compact('settings', 'about', 'skills', 'projects', 'careers', 'contacts'));
+        return view('home', compact('settings', 'about', 'skills', 'projects', 'careers', 'resume', 'contacts'));
     }
 }

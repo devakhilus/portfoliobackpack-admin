@@ -26,4 +26,5 @@ Route::group([
     Route::crud('career', 'CareerCrudController');
     Route::crud('contact', 'ContactCrudController');
     Route::crud('setting', 'SettingCrudController');
+    Route::crud('resume', 'ResumeCrudController');
 });

@@ -45,6 +45,27 @@
     @endforelse
 </section>
 
+{{-- Resume Section --}}
+<section id="resume">
+    <h2>Resume</h2>
+    @if ($resume && $resume->file)
+    <details>
+        <summary>
+            {{ $resume->title ?? 'Resume' }}
+            <span style="float:right;">📄</span>
+        </summary>
+        <p>
+            <a class="btn btn-primary" href="{{ Storage::disk('public')->url($resume->file) }}" download>
+                📥 Download Resume
+            </a>
+        </p>
+    </details>
+    @else
+    <p>No resume uploaded yet.</p>
+    @endif
+</section>
+
+
 {{-- Contact Section --}}
 <section id="contact">
     <h2>Contact Me</h2>

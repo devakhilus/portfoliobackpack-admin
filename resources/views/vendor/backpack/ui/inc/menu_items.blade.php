@@ -13,3 +13,4 @@
 <x-backpack::menu-item title="Careers" icon="la la-briefcase" :link="backpack_url('career')" />
 <x-backpack::menu-item title="Contacts" icon="la la-envelope" :link="backpack_url('contact')" />
 <x-backpack::menu-item title="Settings" icon="la la-cog" :link="backpack_url('setting')" />
+<x-backpack::menu-item title="Resumes" icon="la la-question" :link="backpack_url('resume')" />
