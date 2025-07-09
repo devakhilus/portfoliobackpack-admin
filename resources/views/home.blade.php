@@ -2,6 +2,7 @@
 
 @section('content')
 @php use Illuminate\Support\Str; @endphp
+@php use Illuminate\Support\Facades\Storage; @endphp
 
 {{-- About Section --}}
 <section id="about">
@@ -51,11 +52,11 @@
     @if ($resume && $resume->file)
     <details>
         <summary>
-            {{ $resume->title ?? 'Resume' }}
+            {{ $resume->title ?? 'My Resume' }}
             <span style="float:right;">📄</span>
         </summary>
         <p>
-            <a class="btn btn-primary" href="{{ Storage::disk('public')->url($resume->file) }}" download>
+            <a class="btn btn-primary" href="{{ Storage::disk('public')->url($resume->file) }}" target="_blank" download>
                 📥 Download Resume
             </a>
         </p>
@@ -64,6 +65,8 @@
     <p>No resume uploaded yet.</p>
     @endif
 </section>
+
+
 
 
 {{-- Contact Section --}}
