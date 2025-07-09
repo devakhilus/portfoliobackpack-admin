@@ -143,7 +143,10 @@ box-shadow: 0 4px 10px var(--shadow);
 width: 300px;
 padding: 1.2rem;
 transition: transform 0.3s ease, box-shadow 0.3s ease;
+color: var(--text); /* ✅ Add this to inherit correct color */
 }
+
+
 
 .card:hover {
 transform: scale(1.05);

@@ -12,22 +12,19 @@ use App\Models\Contact;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $settings = Setting::pluck('value', 'key')->toArray(); // Loads all key-value settings
-        $about = About::first(); // Optional: use ->latest()->first() if multiple exist
-        $skills = Skill::orderBy('id')->get();
-        $projects = Project::latest()->get();
+        $settings = Setting::pluck('value', 'key')->toArray();
+        $about = About::first();
+        $skills = Skill::all();
+        $projects = Project::latest()->paginate(5);
         $careers = Career::latest()->get();
         $contacts = Contact::all();
 
-        return view('home', compact(
-            'settings',
-            'about',
-            'skills',
-            'projects',
-            'careers',
-            'contacts'
-        ));
+        if ($request->ajax()) {
+            return view('partials.projects', compact('projects'))->render();
+        }
+
+        return view('home', compact('settings', 'about', 'skills', 'projects', 'careers', 'contacts'));
     }
 }

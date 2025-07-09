@@ -22,36 +22,12 @@
 </section>
 
 {{-- Projects Section --}}
-{{-- Projects Section --}}
-{{-- Projects Section --}}
 <section id="projects">
     <h2>Projects</h2>
-    <div class="projects-container">
-        @forelse ($projects as $project)
-        <div class="card">
-            <h3>{{ $project->title }}</h3>
-            <p style="color: var(--subtext);">{{ \Illuminate\Support\Str::limit($project->description, 100) }}</p>
-            <p>
-                @if ($project->demo_url)
-                <a href="{{ $project->demo_url }}" target="_blank">Live Demo</a>
-                @endif
-
-                @if ($project->demo_url && $project->github_url)
-                |
-                @endif
-
-                @if ($project->github_url)
-                <a href="{{ $project->github_url }}" target="_blank">GitHub</a>
-                @endif
-            </p>
-        </div>
-        @empty
-        <p>No projects to show yet.</p>
-        @endforelse
+    <div id="project-container">
+        @include('partials.projects') {{-- This partial should include cards and pagination --}}
     </div>
 </section>
-
-
 
 {{-- Career Section --}}
 <section id="career">
@@ -89,4 +65,31 @@
         @endforelse
     </div>
 </section>
+@endsection
+
+@section('scripts')
+<script>
+    document.addEventListener('click', function(e) {
+        const link = e.target.closest('#pagination-wrapper a');
+        if (link) {
+            e.preventDefault();
+            const url = link.getAttribute('href');
+
+            fetch(url, {
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(res => res.text())
+                .then(html => {
+                    document.getElementById('project-container').innerHTML = html;
+
+                    window.scrollTo({
+                        top: document.getElementById('projects').offsetTop,
+                        behavior: 'smooth'
+                    });
+                });
+        }
+    });
+</script>
 @endsection
